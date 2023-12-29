@@ -1,4 +1,8 @@
+import express from 'express';
 import clipboardy from 'clipboardy';
+
+const app = express();
+const port = 3000;
 
 // Array of strings
 const stringArray = [
@@ -18,19 +22,21 @@ const mergeWithSpaces = (strings) => {
     return strings.join(' ');
 };
 
-// Function to display the result and copy to clipboard
-const displayAndCopyResult = () => {
+// Generate and send the merged string as a response
+app.get('/', (req, res) => {
     const randomStrings = getRandomStrings(stringArray, 10);
     const mergedString = mergeWithSpaces(randomStrings);
-
-    // Display the result
-    console.log("Merged String:", mergedString);
 
     // Copy the result to clipboard
     clipboardy.writeSync(mergedString);
 
-    console.log("Merged String copied to clipboard:", mergedString);
-};
+    // Send the merged string as a response
+    res.send(`Merged String: ${mergedString}\n(Copied to clipboard)`);
 
-// Call the function
-displayAndCopyResult();
+    console.log("Merged String sent as response:", mergedString);
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is listening at http://localhost:${port}`);
+});
