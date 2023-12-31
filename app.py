@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 import random
 import pyperclip
 
@@ -33,4 +33,5 @@ def generate_and_display():
     return f'Merged String: {merged_string}<br />(Copied to clipboard)'
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Run the app on all available network interfaces, not just localhost
+    app.run(debug=False, host='0.0.0.0', port=5000)
