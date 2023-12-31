@@ -1,6 +1,5 @@
 from flask import Flask
 import random
-import pyperclip
 
 app = Flask(__name__)
 
@@ -26,12 +25,8 @@ def generate_and_display():
     random_strings = get_random_strings(string_array, 10)
     merged_string = merge_with_spaces(random_strings)
 
-    # Copy the result to clipboard using pyperclip
-    pyperclip.copy(merged_string)
-
     # Return the merged string as the response
-    return f'Merged String: {merged_string}<br />(Copied to clipboard)'
+    return f'Merged String: {merged_string}'
 
 if __name__ == '__main__':
-    # Run the app on all available network interfaces, not just localhost
-    app.run(debug=False, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
